@@ -1,20 +1,25 @@
-import  express from "express";// module mwi import kaam karega aur commonjs mai require
-import dotenv from "dotenv";
+import express from "express";
 import authRouter from "./routes/auth.route.js";
-import message from  "./routes/message.route.js";
-import {mongodb} from "./liv/db.js";
+import messageRouter from "./routes/message.route.js";
+import { mongodb } from "./liv/db.js";
+import dotenv from "dotenv";
+
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
 const app = express();
-app.use(express.json());
-app.use("/api/auth", authRouter)
-app.use("/api/message", message)
-app.get("/",(req,res)=>{
-  res.send("hello world");
-});
-app.listen(PORT,()=>{
-  console.log("server started");
-  mongodb();
+const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+
+app.use("/api/auth", authRouter);
+app.use("/api/message", messageRouter);
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+mongodb();
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
