@@ -1,16 +1,13 @@
 import express from "express";
-import { signup } from "../controller/contentapi.js";
+import { signup,login,logout } from "../controller/contentapi.js";
 const router = express.Router();
  
-router.post("/signup", 
+router.post("/signup",signup);
+router.post("/login",login );
+    
 
-signup);
-router.get("/login", (req, res) =>{
-    res.send("login endpoint");
 
-});
-router.get("/logout", (req, res) =>{
-    res.send("logout endpoint");
 
-});
+router.post("/logout", logout);
+
 export default router;
