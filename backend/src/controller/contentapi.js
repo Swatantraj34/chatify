@@ -3,7 +3,8 @@ import User from "../models/user.js";
 import { generateToken } from "../liv/util.js";
 import { sendwelcomeEmail } from "../emails/emailhandelers.js";
 import "dotenv/config";
-import e from "express";
+import express from "express";
+import cloudinary from "../liv/cloudinary.js";
 
 export const signup = async(req, res) =>{
 
@@ -83,3 +84,20 @@ export const login = async(req, res) =>{
 export const logout = async(_, res) =>{
     res.cookie("token", "", {maxage: 0});   
     res.status(200).json({message: "logged out successfully"});};
+export const updateProfile = async(req, res) =>{
+    try {
+        const {profilepic}= req.body;
+    
+
+
+        if(!profilepic){
+            return res.status(400).json({message: "profile picture is required"});
+        }
+        const user = await User.findById(req.user._id);
+    }
+        
+        
+        
+        catch(err){
+            console.log("there is an error",err);
+            res.status(500).json({message: "server error"});   }    }  
