@@ -1,17 +1,16 @@
-import express from "express";
+import express from "express"; 
+import { getallcontacts, getmessageById,getchatpartners,sendMessage } from "../controller/message.controller.js";
+import { protectroute } from "../middleware/auth.middleware.js";
+import { arcjetMiddleware } from "../middleware/arcjet.middleware.js";
  
 const router = express.Router();
+router.use(arcjetMiddleware,protectroute);
+ router.get("/contacts",getallcontacts);
+ router.get("/chats",getchatpartners);
+ router.get("/:id",getmessageById);
+
+router.post("/send/:id",sendMessage);
  
-router.get("/signup", (req, res) =>{
-    res.send("signup endpoint");
-
-});
-router.get("/login", (req, res) =>{
-    res.send("login endpoint");
-
-});
-router.get("/message", (req, res) =>{
-    res.send(" shreyansh madharxhod");
-
-});
+ 
 export default router;
+
