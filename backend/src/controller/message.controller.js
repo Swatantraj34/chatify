@@ -31,6 +31,16 @@ export const sendMessage = async(req, res) =>{
         const {text, image} = req.body;
         const {id: receiverId} = req.params;
         const senderId  = req.user._id;
+        if(!text && !image){
+            return res.status(400).json({message: "text or image is required"});
+        }   
+        if(senderId.toString() === receiverId.toString()){
+            return res.status(400).json({message: "you cannot send message to yourself"});
+        }
+        const receiver = await user.findById(receiverId);   
+        if(!receiver){
+            return res.status(404).json({message: "receiver not found"});
+        }
         let imageurl;
         if(image){
             const uploadresult = await cloudinary.uploader.upload(image);
