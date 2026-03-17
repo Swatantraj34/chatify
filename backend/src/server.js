@@ -4,9 +4,11 @@ import messageRouter from "./routes/message.route.js";
 import { mongodb } from "./liv/db.js";
 import dotenv from "dotenv";
 import cookieparser from "cookie-parser";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
+app.use(cors({origin: "http://localhost:5173", credentials: true}));
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
